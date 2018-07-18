@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+use Heah\YamlLinter\YamlLinter;
+use Symfony\Component\Console\Input\ArgvInput;
+
+require __DIR__.'/../vendor/autoload.php';
+
+(new YamlLinter())->run(new ArgvInput());
