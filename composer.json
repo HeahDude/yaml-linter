@@ -27,5 +27,6 @@
         "psr-4": {
             "Heah\\YamlLinter\\Tests\\": "tests/"
         }
-    }
+    },
+    "bin": ["bin/yaml-linter"]
 }
