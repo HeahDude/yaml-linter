@@ -20,7 +20,7 @@ use Symfony\Component\Yaml\Command\LintCommand;
 class YamlLinter extends Application
 {
     public const NAME = 'YAML Linter';
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.1.0';
 
     public function __construct()
     {

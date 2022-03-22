@@ -20,7 +20,7 @@ class YamlLinterTest extends TestCase
     /** @var YamlLinter */
     private $linter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $app = new YamlLinter();
         $app->setAutoExit(false);
@@ -28,38 +28,38 @@ class YamlLinterTest extends TestCase
         $this->linter = new ApplicationTester($app);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->linter = null;
     }
 
     public function testDefaultCommand()
     {
-        $this->assertSame(0, $this->linter->run(['--help']));
-        $this->assertContains('The lint:yaml command lints a YAML file and outputs to STDOUT', $this->linter->getDisplay());
+        self::assertSame(0, $this->linter->run(['--help']));
+        self::assertStringContainsString('The lint:yaml command lints a YAML file and outputs to STDOUT', $this->linter->getDisplay());
     }
 
     public function testArgumentIsRequired()
     {
-        $this->assertSame(1, $this->linter->run([]));
-        $this->assertContains('Please provide a filename or pipe file content to STDIN.', $this->linter->getDisplay());
+        self::assertSame(1, $this->linter->run([]));
+        self::assertStringContainsString('Please provide a filename or pipe file content to STDIN.', $this->linter->getDisplay());
     }
 
     public function testArgumentMustBeValidStream()
     {
-        $this->assertSame(1, $this->linter->run(['filename' => 'toto']));
-        $this->assertContains('File or directory "toto" is not readable.', $this->linter->getDisplay());
+        self::assertSame(1, $this->linter->run(['filename' => 'toto']));
+        self::assertStringContainsString('File or directory "toto" is not readable.', $this->linter->getDisplay());
     }
 
     public function testLintValidFile()
     {
-        $this->assertSame(0, $this->linter->run(['filename' => __DIR__.'/fixtures/valid.yaml']));
-        $this->assertContains('[OK] All 1 YAML files contain valid syntax.', $this->linter->getDisplay());
+        self::assertSame(0, $this->linter->run(['filename' => __DIR__.'/fixtures/valid.yaml']));
+        self::assertStringContainsString('[OK] All 1 YAML files contain valid syntax.', $this->linter->getDisplay());
     }
 
     public function testLintInvalidFile()
     {
-        $this->assertSame(1, $this->linter->run(['filename' => __DIR__.'/fixtures/invalid.yaml']));
-        $this->assertContains('[WARNING] 0 YAML files have valid syntax and 1 contain errors.', $this->linter->getDisplay());
+        self::assertSame(1, $this->linter->run(['filename' => __DIR__.'/fixtures/invalid.yaml']));
+        self::assertStringContainsString('[WARNING] 0 YAML files have valid syntax and 1 contain errors.', $this->linter->getDisplay());
     }
 }
